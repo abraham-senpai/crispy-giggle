@@ -1,8 +1,19 @@
-﻿body
+﻿.default
 {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 3em;
 	color: white;
+	background-color: black;
+	text-align: right;
+    /*background-image: url("background.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;*/
+}
+.reminder
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 3em;
+	color: red;
 	background-color: black;
 	text-align: right;
     /*background-image: url("background.jpg");

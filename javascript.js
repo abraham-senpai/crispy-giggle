@@ -1,18 +1,20 @@
 window.onload = function()
 {
     DisplayTime();
-    DisplayReminder();
+    DisplayReminder(); // Comment this out if you don't want reminders.
 }
 
 function DisplayReminder()
 {
-    var reminder1 = new Array( "breakfast" , 6 , 00 );
+    var reminder1 = new Array( "breakfast" , 7 , 15 ); // For midnight, use 24 hours instead of 0 hours. To see tomorrow's reminder, add 24 hours (e.g. 25 , 00 for 1:00 AM).
     var reminder2 = new Array( "lunch" , 12 , 00 );
-    var reminder3 = new Array( "dinner" , 23 , 59 );
-    var reminderList = new Array( reminder1 , reminder2 , reminder3 );
+    var reminder3 = new Array( "dinner" , 18 , 30 );
+    var reminderList = new Array( reminder1 , reminder2 , reminder3 ); // Must be in chronological order.
     var currentTime = new Date();
     var currentHours = currentTime.getHours();
     var currentMinutes = currentTime.getMinutes();
+    var displayMusic = false;
+    var music = "music.mp3";
 
     for ( i = 0 ; i < reminderList.length ; i++ )
     {
@@ -67,14 +69,31 @@ function DisplayReminder()
                 hourText += " & "
             }
 
+            document.getElementById( "body" ).className = "default";
             document.getElementById( "reminder" ).innerHTML = hourText + minuteText + "until " + reminder[ 0 ] + ".";
+            document.getElementById( "music" ).innerHTML = "";
             setTimeout( DisplayReminder , 500 );
             break;
         }
         else if ( currentHours == reminder[ 1 ] && currentMinutes == reminder[ 2 ] )
         {
-            document.getElementById( "reminder" ).innerHTML = "Time for " + reminder[ 0 ] + ".";
+            document.getElementById( "body" ).className = "reminder";
+            document.getElementById( "reminder" ).innerHTML = "Time for " + reminder[0] + ".";
+
+            if ( displayMusic == true )
+            {
+                document.getElementById( "music" ).innerHTML = "<audio controls autoplay><source src=\"" + music + "\" type=\"audio/mpeg\"></audio>";
+            }
+
             setTimeout( DisplayReminder , 600000 );
+            break;
+        }
+        else if ( i == ( reminderList.length - 1 ) )
+        {
+            document.getElementById( "body" ).className = "default";
+            document.getElementById( "reminder" ).innerHTML = "";
+            document.getElementById( "music" ).innerHTML = "";
+            setTimeout( DisplayReminder , 500 );
             break;
         }
     }
